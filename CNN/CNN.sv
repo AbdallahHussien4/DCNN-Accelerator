@@ -1,5 +1,4 @@
-module CNN (clk,start,finish,DMADone);
-    input clk;
+module CNN (start,finish,DMADone);
     input start;
     input DMADone;
     output finish;
@@ -8,12 +7,13 @@ module CNN (clk,start,finish,DMADone);
     shortint filter[4:0][4:0];
     shortint image[31:0][31:0];
     
-    reg result [31:0] ;
+    shortint result;
 
     int state = 0;
     int featureMapNumber[5:0] = '{1, 6, 6, 16, 16, 120};
     int featureMapSize[5:0] = '{32, 28, 14, 10, 5, 1};
 
+    assign finish = start + DMADone;
 
     always @(start) begin
         for(int layer=0; layer<6; layer+=1)
@@ -46,15 +46,15 @@ module CNN (clk,start,finish,DMADone);
                 for(int j = 0; j < featureMapNumber[layer]; j+=1)
                 begin
                     // read image
-                    wait(DMADone == 1'b1);
-                    image = '{ 31{ 31{0} } };
+                    //wait(DMADone == 1'b1);
+                    // image = '{ 31{ 31{0} } };
                     for (int x = 0; x < featureMapSize[layer]-1; x+=2) 
                     begin
                         for (int y = 0; y < featureMapSize[layer]-1; y+=2) 
                         begin
                             result = (image[x][y] + image[x][y+1] + image[x+1][y] + image[x+1][y+1]) >> 2;
                             // save image
-                            wait(DMADone);
+                            //wait(DMADone);
                         end
                     end
                 end
