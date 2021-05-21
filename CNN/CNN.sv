@@ -1,19 +1,25 @@
-module CNN (start,finish,DMADone);
+module CNN (start,finish,DMADone,memorySave,image);
     input start;
     input DMADone;
+    input shortint image[31:0][31:0];
     output finish;
+    output[15:0] memorySave;
+    reg[15:0] memoryReg;
 
     shortint window[4:0][4:0];
     shortint filter[4:0][4:0];
-    shortint image[31:0][31:0];
     
     shortint result;
 
     int state = 0;
     int featureMapNumber[5:0] = '{1, 6, 6, 16, 16, 120};
     int featureMapSize[5:0] = '{32, 28, 14, 10, 5, 1};
+    int filtersGroup[5:0] = '{6,0,16,0,120,0};
+
+    int sum;
 
     assign finish = start + DMADone;
+    assign memorySave = memoryReg;
 
     always @(start) begin
         for(int layer=0; layer<6; layer+=1)
@@ -33,6 +39,26 @@ module CNN (start,finish,DMADone);
                 //      sum the output
                 //      read the data from the memory if it's not the first one in the group then add the data to the ouput
                 //      save the data to the memory
+                for (int group = 0; group < filtersGroup[layer] ; group+=1) begin
+                    for (int filterIndex = 0;filterIndex < featureMapNumber[layer] ; filterIndex +=1 ) begin
+                        //read filter
+                        //read image
+                        for (int x = 2; x < featureMapSize[layer]-2; x+=1) 
+                        begin
+                            for (int y = 2; y < featureMapSize[layer]-2; y+=1) 
+                            begin
+                                sum = 0;
+                                for (int row = 0; row <5; row+=1) begin
+                                    for (int col = 0; col < 5; col+=1) begin
+                                        sum = sum + (filter[row][col] * image[x-2+row][y-2+col]);
+                                    end
+                                end
+                                // save result in memory
+                                memoryReg = sum[26:11];
+                            end
+                        end
+                    end
+                end
             end
             else begin
                 // Pooling Layer
@@ -54,6 +80,7 @@ module CNN (start,finish,DMADone);
                         begin
                             result = (image[x][y] + image[x][y+1] + image[x+1][y] + image[x+1][y+1]) >> 2;
                             // save image
+                            memoryReg = result;
                             //wait(DMADone);
                         end
                     end
