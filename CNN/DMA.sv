@@ -1,6 +1,6 @@
 module DMA (
     start, 
-    finish, 
+    finish_read, 
     clk, 
     address, 
     write, 
@@ -14,10 +14,10 @@ module DMA (
     
     input start, clk, pooling, RAM_write, data_read;
     input [4:0] imageSize;
-    input [12:0] address;
+    input [15:0] address;
 
-    output finish, write;
-    output [12:0] RAM_address;
+    output write, finish_read;
+    output [15:0] RAM_address;
 
     inout [15:0] RAM_bus;
     inout [15:0] dataBus [4:0][4:0];
@@ -26,8 +26,9 @@ module DMA (
     shortint image [31:0][31:0];
     reg [15:0] RAM_bus_reg;
     reg [15:0] dataBus_reg [4:0][4:0];
-    reg [12:0] RAM_address = address;
+    reg [15:0] RAM_address = address;
     reg finish = 1'b0;
+    reg finish_read = 1'b0;
     int i,j;
 
     assign write = RAM_write;
@@ -72,9 +73,11 @@ module DMA (
                         dataBus_reg[0][1] <= image[ i ][j+1];
                         dataBus_reg[1][0] <= image[i+1][ j ];
                         dataBus_reg[1][1] <= image[i+1][j+1];
+                        finish_read = 1;
                     end
                 end
                 finish = 1'b0;
+                finish_read = 1;
             end else begin
                 for(i = 0; i < imageSize-5; i+=5) begin
                     for (j= 0; j < imageSize-5; j+=5) begin
@@ -83,6 +86,7 @@ module DMA (
                         dataBus_reg[2] <= {image[i+2][j], image[i+2][j+1], image[i+2][j+2], image[i+2][j+3], image[i+2][j+4]};
                         dataBus_reg[3] <= {image[i+3][j], image[i+3][j+1], image[i+3][j+2], image[i+3][j+3], image[i+3][j+4]};
                         dataBus_reg[4] <= {image[i+4][j], image[i+4][j+1], image[i+4][j+2], image[i+4][j+3], image[i+4][j+4]};
+                        finish_read = 1;
                     end
                 end
                 finish = 1'b0;
@@ -122,11 +126,17 @@ module DMA (
                     image[i+4][j+2] <= dataBus[4][2];
                     image[i+4][j+3] <= dataBus[4][3];
                     image[i+4][j+4] <= dataBus[4][4];
-                end
+                
+                    finish_read = 1;
+                end    
             end
             finish = 1'b0;
         end
     end
     assign dataBus = dataBus_reg;
+
+    always @(negedge(start)) begin
+        finish_read = 0;
+    end
 
 endmodule

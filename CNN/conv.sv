@@ -2,10 +2,14 @@ typedef bit [15:0] fixedPoint;
 module conv (
   input fixedPoint window [4:0][4:0], filter [4:0][4:0],
   input start,
-  output fixedPoint convResult
+  output fixedPoint convResult,
+  output finish
 );
   int result;
   reg [31: 0] products [24:0];
+  reg finish_temp;
+
+  assign finish = finish_temp;
   initial begin
     result = 0;
     products = '{default:0};
@@ -21,10 +25,14 @@ module conv (
     endgenerate
 
   int k;
-  always @(*) begin
+  always @(posedge(start)) begin
     for(k=0; k < 25; k+=1) begin
       result = result + products[k];
     end
+    finish_temp = 1;
+  end
+  always @(negedge(start)) begin
+    finish_temp = 0;
   end
 // TODO:: Should take into consideration overflow if happened
   assign convResult = result[26:11];
