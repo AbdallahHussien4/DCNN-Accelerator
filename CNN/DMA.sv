@@ -10,24 +10,28 @@ module DMA (
     data_read,
     dataBus, 
     imageSize, 
-    pooling);
+    pooling,
+    image_input,
+    next);
     
-    input start, clk, pooling, RAM_write, data_read;
+    input start, clk, pooling, RAM_write, data_read, next;
     input [4:0] imageSize;
     input [15:0] address;
+    input [15:0] image_input [31:0][31:0];
 
     output write, finish_read;
     output [15:0] RAM_address;
+    output [15:0] dataBus [4:0][4:0];
 
     inout [15:0] RAM_bus;
-    inout [15:0] dataBus [4:0][4:0];
     
     
-    shortint image [31:0][31:0];
+    
+    reg [15:0] image [31:0][31:0];
     reg [15:0] RAM_bus_reg;
     reg [15:0] dataBus_reg [4:0][4:0];
     reg [15:0] RAM_address = address;
-    reg finish = 1'b0;
+    reg finish = 1'b0, next;
     reg finish_read = 1'b0;
     int i,j;
 
@@ -74,6 +78,7 @@ module DMA (
                         dataBus_reg[1][0] <= image[i+1][ j ];
                         dataBus_reg[1][1] <= image[i+1][j+1];
                         finish_read = 1;
+                        wait(next == 1);
                     end
                 end
                 finish = 1'b0;
@@ -87,6 +92,7 @@ module DMA (
                         dataBus_reg[3] <= {image[i+3][j], image[i+3][j+1], image[i+3][j+2], image[i+3][j+3], image[i+3][j+4]};
                         dataBus_reg[4] <= {image[i+4][j], image[i+4][j+1], image[i+4][j+2], image[i+4][j+3], image[i+4][j+4]};
                         finish_read = 1;
+                        wait(next == 1);
                     end
                 end
                 finish = 1'b0;
@@ -95,41 +101,8 @@ module DMA (
             // ==========================
             // ===== Reading images =====
             // ==========================
-            for(i = 0; i < imageSize-5; i+=5) begin
-                for (j= 0; j < imageSize-5; j+=5) begin
-                    image[ i ][ j ] <= dataBus[0][0];
-                    image[ i ][j+1] <= dataBus[0][1];
-                    image[ i ][j+2] <= dataBus[0][2];
-                    image[ i ][j+3] <= dataBus[0][3];
-                    image[ i ][j+4] <= dataBus[0][4];
-
-                    image[i+1][ j ] <= dataBus[1][0];
-                    image[i+1][j+1] <= dataBus[1][1];
-                    image[i+1][j+2] <= dataBus[1][2];
-                    image[i+1][j+3] <= dataBus[1][3];
-                    image[i+1][j+4] <= dataBus[1][4];
-
-                    image[i+2][ j ] <= dataBus[2][0];
-                    image[i+2][j+1] <= dataBus[2][1];
-                    image[i+2][j+2] <= dataBus[2][2];
-                    image[i+2][j+3] <= dataBus[2][3];
-                    image[i+2][j+4] <= dataBus[2][4];
-
-                    image[i+3][ j ] <= dataBus[3][0];
-                    image[i+3][j+1] <= dataBus[3][1];
-                    image[i+3][j+2] <= dataBus[3][2];
-                    image[i+3][j+3] <= dataBus[3][3];
-                    image[i+3][j+4] <= dataBus[3][4];
-
-                    image[i+4][ j ] <= dataBus[4][0];
-                    image[i+4][j+1] <= dataBus[4][1];
-                    image[i+4][j+2] <= dataBus[4][2];
-                    image[i+4][j+3] <= dataBus[4][3];
-                    image[i+4][j+4] <= dataBus[4][4];
-                
-                    finish_read = 1;
-                end    
-            end
+            image = image_input;
+            finish_read = 1;
             finish = 1'b0;
         end
     end
