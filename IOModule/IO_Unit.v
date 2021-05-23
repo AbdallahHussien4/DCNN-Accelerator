@@ -1,11 +1,14 @@
-module IO_Unit (load, rst, interrupt, clk, inputSection, decompressedData, cnn_img, done);
+module IO_Unit (load_process, rst, interrupt, clk, inputSection, cnn_img, done, dout);
 
 parameter sectionSize = 4;
 parameter rowSize = 16;
 
-input [rowSize - 1:0] decompressedData;
+// parameter sectionSize = 16;
+// parameter rowSize = 512;
+
+wire [rowSize - 1:0] decompressedData;
 input [sectionSize - 1:0] inputSection;
-input load;
+input load_process;
 input cnn_img;
 input rst;
 input interrupt;
@@ -15,10 +18,11 @@ wire [rowSize - 1:0] compressedData;
 wire de_en;
 wire in_en;
 
+output[3:0]dout;
 
-Decompressor #(.sectionSize(sectionSize), .rowSize(rowSize)) decompressor (.compressedData(compressedData), .decompressedData(decompressedData), .enable(de_en), .rst(rst));
+Decompressor #(.sectionSize(sectionSize), .rowSize(rowSize)) decompressor (.compressedData(compressedData), .enable(de_en), .rst(rst), .decompressedData(decompressedData));
 IO_Interface #(.sectionSize(sectionSize), .rowSize(rowSize)) interface (.compressedData(compressedData), .inputSection(inputSection) , .enable(in_en), .clk(clk), .rst(rst));
-IO_Controller #() controller(.load(load), .io_interface_en(in_en), .decompressor_en(de_en), .interrupt(interrupt), .cnn_img(cnn_img));
+IO_Controller #() controller(.load(load_process), .io_interface_en(in_en), .decompressor_en(de_en), .interrupt(interrupt), .cnn_img(cnn_img));
 
 
 
