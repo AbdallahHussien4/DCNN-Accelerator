@@ -1,13 +1,33 @@
-module RAM (enable, clk, address, write, data);
-	input clk, enable, write;
-	input [15:0]address;
-	inout data;
+module RAM (enable, clk, address, write, output_data, offset, input_data, finish);
+	input clk, enable, write, finish;
+	input shortint address, offset;
+	input shortint input_data;
 
-	reg [15:0] mem [100000:0];
+	output shortint output_data[4:0][4:0];
+
+	shortint mem [100000:0];
+	reg finish_flag;
+
+	assign finish = finish_flag;
+	
+	always @(posedge enable) begin
+		finish_flag = 0;
+	end
+
 	always @(posedge clk) begin
-		if (enable & write) begin
-			mem[address] = data;
+		if (enable & write & !finish) begin
+			mem[address] = input_data;
+			finish_flag = 1;
 		end
 	end
-	assign data = mem[address];
+	always @(negedge clk) begin
+		if(enable & !write & !finish) begin
+			output_data[0] <= mem[address +: 5];
+			output_data[1] <= mem[address + (offset * 1) +: 5];
+			output_data[2] <= mem[address + (offset * 2) +: 5];
+			output_data[3] <= mem[address + (offset * 3) +: 5];
+			output_data[4] <= mem[address + (offset * 4) +: 5];
+			finish_flag = 1;
+		end
+	end
 endmodule

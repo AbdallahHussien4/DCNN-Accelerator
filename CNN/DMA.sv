@@ -1,115 +1,140 @@
 module DMA (
-    start, 
-    finish_read, 
-    clk, 
-    address, 
-    write, 
-    RAM_bus, 
+    start,
+    reset,
+    finish_read,
+    clk,
+    address,
+    offset,
+    read_write_filter_bias,
+    filter_number,
+    CNN_output_data,
+    CNN_input_data,
     RAM_address,
+    RAM_offset,
     RAM_write,
-    data_read,
-    dataBus, 
-    imageSize, 
-    pooling,
-    image_input,
-    next);
+    RAM_output_data,
+    RAM_input_data,
+    RAM_finish,
+    RAM_enable,
+    FB_write,
+    FB_filter,
+    FB_index_filter,
+    FB_bias,
+    FB_bias_or_filter);
     
-    input start, clk, pooling, RAM_write, data_read, next;
-    input [4:0] imageSize;
-    input [15:0] address;
-    input [15:0] image_input [31:0][31:0];
+    input start, clk, reset, RAM_finish;
+    input [1:0] read_write_filter_bias;
+    input shortint address, filter_number;
+    input shortint offset;
+    input shortint CNN_input_data [4:0][4:0];
+    input shortint RAM_input_data [4:0][4:0];
 
-    output write, finish_read;
-    output [15:0] RAM_address;
-    output [15:0] dataBus [4:0][4:0];
+    output RAM_write, finish_read, RAM_enable;
+    output shortint RAM_address, RAM_offset;
+    output shortint RAM_output_data [4:0][4:0];
+    output shortint CNN_output_data [4:0][4:0];
 
-    inout [15:0] RAM_bus;
-    
-    
-    
-    reg [15:0] image [31:0][31:0];
-    reg [15:0] RAM_bus_reg;
-    reg [15:0] dataBus_reg [4:0][4:0];
-    reg [15:0] RAM_address = address;
-    reg finish = 1'b0, next;
-    reg finish_read = 1'b0;
-    int i,j;
+    output FB_write, FB_bias_or_filter;
+    output shortint FB_index_filter;
+    output shortint FB_filter [4:0][4:0];
+    output shortint FB_bias[119:0];
 
-    assign write = RAM_write;
-    // =====================================
-    // ===== Reading or writing to RAM =====
-    // =====================================
+    reg RAM_write, finish_read, RAM_enable, FB_bias_or_filter, FB_write;
+    shortint inner_address;
+    shortint bias[119:0];
+    int biasCounter, filter_index;
+    
+    
+    assign RAM_offset = offset;
+    
+
     always @(negedge clk) begin
-        if (start & !finish) begin
-            if(RAM_write) begin
-                for (i = 0; i < imageSize; i += 1) begin
-                    for (j = 0; j < imageSize; i += 1) begin
-                        RAM_bus_reg = image[i][j];
-                        RAM_address += 1;
-                    end
-                end
-                finish = 1'b1;
-            end
-            else begin
-                for (i = 0; i < imageSize; i += 1) begin
-                    for (j = 0; j < imageSize; i += 1) begin
-                        image[i][j] = RAM_bus;
-                        RAM_address += 1;
-                    end
-                end
-                finish = 1'b1;
-            end
-        end
-    end
-    assign RAM_bus = RAM_bus_reg;
+        if(start & read_write_filter_bias == 2'b01) begin
+            RAM_write = 1;
+            RAM_address = address;
+            RAM_enable = 1;
+            RAM_output_data = CNN_input_data;
 
-
-
-    always @(posedge finish) begin
-        if (data_read) begin
-            // ======================================
-            // ===== sending filters and images =====
-            // ======================================
-            if(pooling) begin
-                for(i = 0; i < imageSize-2; i+=2) begin
-                    for (j= 0; j < imageSize-2; j+=2) begin
-                        dataBus_reg[0][0] <= image[ i ][ j ];
-                        dataBus_reg[0][1] <= image[ i ][j+1];
-                        dataBus_reg[1][0] <= image[i+1][ j ];
-                        dataBus_reg[1][1] <= image[i+1][j+1];
-                        finish_read = 1;
-                        wait(next == 1);
-                    end
-                end
-                finish = 1'b0;
+            if(RAM_finish == 1'b1) begin
                 finish_read = 1;
-            end else begin
-                for(i = 0; i < imageSize-5; i+=5) begin
-                    for (j= 0; j < imageSize-5; j+=5) begin
-                        dataBus_reg[0] <= {image[ i ][j], image[ i ][j+1], image[ i ][j+2], image[ i ][j+3], image[ i ][j+4]};
-                        dataBus_reg[1] <= {image[i+1][j], image[i+1][j+1], image[i+1][j+2], image[i+1][j+3], image[i+1][j+4]};
-                        dataBus_reg[2] <= {image[i+2][j], image[i+2][j+1], image[i+2][j+2], image[i+2][j+3], image[i+2][j+4]};
-                        dataBus_reg[3] <= {image[i+3][j], image[i+3][j+1], image[i+3][j+2], image[i+3][j+3], image[i+3][j+4]};
-                        dataBus_reg[4] <= {image[i+4][j], image[i+4][j+1], image[i+4][j+2], image[i+4][j+3], image[i+4][j+4]};
-                        finish_read = 1;
-                        wait(next == 1);
-                    end
-                end
-                finish = 1'b0;
+                RAM_enable = 0;
             end
-        end else begin
-            // ==========================
-            // ===== Reading images =====
-            // ==========================
-            image = image_input;
-            finish_read = 1;
-            finish = 1'b0;
+        end
+    end   
+
+    always @(posedge clk) begin
+        if (start) begin
+            if (read_write_filter_bias == 2'b00) begin
+                RAM_write = 0;
+                RAM_address = address;
+                RAM_enable = 1;
+
+                if(RAM_finish == 1'b1) begin
+                    CNN_output_data = RAM_input_data;
+                    finish_read = 1;
+                    RAM_enable = 0;
+                end
+            end else if (read_write_filter_bias == 2'b10) begin
+                if (filter_index < filter_number) begin
+                    if (filter_index == 0) begin
+                        inner_address = address;
+                    end
+
+                    RAM_write = 0;
+                    RAM_enable = 1;
+                    RAM_address = inner_address;
+
+                    if(RAM_finish == 1'b1) begin
+                        FB_write = 1;
+                        FB_bias_or_filter = 1;
+                        FB_filter = RAM_input_data;
+                        FB_index_filter = filter_index;
+                        RAM_enable = 0;
+                        FB_write = 0;
+                        filter_index += 1;
+                    end
+                end else begin
+                    filter_index = 0;
+                    finish_read = 1;
+                end
+            end else if (read_write_filter_bias == 2'b11) begin
+                if(biasCounter < 5) begin
+
+                    if (biasCounter == 0) begin
+                        inner_address = address;
+                    end
+                    RAM_enable = 1;
+                    RAM_write = 0;
+                    RAM_address = inner_address;
+
+                    if(biasCounter < 4) begin
+                        if(RAM_finish == 1'b1) begin
+                            bias[(biasCounter * 25) +: 25] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3], RAM_input_data[4]};
+                            biasCounter += 1;
+                            inner_address += 25;
+                            RAM_enable = 0;
+                        end
+                    end else begin
+                        if(RAM_finish == 1'b1) begin
+                            bias[(biasCounter * 25) +: 20] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3]};
+                            biasCounter += 1;
+                            inner_address += 25;
+                            RAM_enable = 0;
+
+                            FB_write = 1;
+                            FB_bias_or_filter = 0;
+                            FB_bias = bias;
+                        end
+                    end
+                end else begin 
+                    finish_read = 1;
+                    biasCounter = 0;
+                end
+            end
         end
     end
-    assign dataBus = dataBus_reg;
 
-    always @(negedge(start)) begin
+    always @(negedge start) begin
         finish_read = 0;
     end
-
 endmodule
