@@ -55,15 +55,15 @@ module DMA (
 
     always @(negedge clk) begin
         if(start & read_write_filter_bias == 2'b01) begin
+            
+            if(RAM_finish == 1'b1) begin
+                finish_read = 1;
+                RAM_enable = 0;
+            end else
             RAM_write = 1;
             RAM_address = address;
             RAM_output_data = CNN_input_data;
             RAM_enable = 1;
-
-            if(RAM_finish == 1'b1) begin
-                finish_read = 1;
-                RAM_enable = 0;
-            end
         end
     end   
 
@@ -141,5 +141,6 @@ module DMA (
 
     always @(negedge start) begin
         finish_read = 0;
+        RAM_enable = 0;
     end
 endmodule

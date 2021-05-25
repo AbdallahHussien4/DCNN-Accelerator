@@ -23,6 +23,7 @@ add wave -position end  sim:/CNN/Mem_enable
 add wave -position end  sim:/CNN/Mem_finish
 add wave -position end  sim:/CNN/Mem_write
 add wave -position end  sim:/CNN/RAM1/output_data
+add wave -position end  sim:/CNN/RAM1/input_data
 
 force -freeze sim:/CNN/clk 1 0, 0 {50 ps} -r 100
 force -freeze sim:/CNN/start 1 0
