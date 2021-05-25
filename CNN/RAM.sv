@@ -20,13 +20,13 @@ module RAM (enable, clk, address, write, output_data, offset, input_data, finish
 	end
 
 	always @(posedge clk) begin
-		if (enable & write & !finish_flag) begin
+		if (enable & write) begin
 			mem[address] = input_data;
 			finish_flag = 1;
 		end
 	end
 	always @(negedge clk) begin
-		if(enable & !write & !finish_flag) begin
+		if(enable & !write) begin
 			output_data[0] <= mem[address +: 5];
 			output_data[1] <= mem[address + (offset * 1) +: 5];
 			output_data[2] <= mem[address + (offset * 2) +: 5];
