@@ -26,12 +26,12 @@ module DMA (
     input [1:0] read_write_filter_bias;
     input shortint address, filter_number;
     input shortint offset;
-    input shortint CNN_input_data [4:0][4:0];
+    input shortint CNN_input_data;
     input shortint RAM_input_data [4:0][4:0];
 
     output RAM_write, finish_read, RAM_enable;
     output shortint RAM_address, RAM_offset;
-    output shortint RAM_output_data [4:0][4:0];
+    output shortint RAM_output_data ;
     output shortint CNN_output_data [4:0][4:0];
 
     output FB_write, FB_bias_or_filter;
