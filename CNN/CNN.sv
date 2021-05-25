@@ -172,7 +172,7 @@ module CNN (start,reset,finish,clk);
                                         DMA_read_write_filter_bias = 1; 
                                         DMA_CNN_input_data = pooling_result;
                                         DMA_start = 1;
-
+                                        pool_start = 0;
                                         poolingState = 2;
                                     end
                                 end else begin
@@ -182,7 +182,7 @@ module CNN (start,reset,finish,clk);
                                 end
                             end else begin
                                 poolingWindowY = 0;
-                                DMA_start_address = DMA_start_address + featureMapSize[layerCounter];
+                                readAdress = readAdress + featureMapSize[layerCounter];
                                 poolingWindowX += 2;
                             end
                         end else begin
