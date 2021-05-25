@@ -23,14 +23,18 @@ module CNN (start,reset,finish,clk);
     int layerCounter, poolingCounter;
     int poolingState, poolingWindowX, poolingWindowY;
 
+    int filtersStartingAdress[2:0] = {0,150,2550};
+    int biasStartingAdress[2:0] = {50550,50556,50572};
+    int imageStartingAdress[5:0] = {50692,51716,56420,57596,59196,59596};
+    int fcStartingAdress = 59716;
 
-    
+    shortint readAdress , writeAdress;
+
     ////////////////////
     // OUTPUT ASSIGNS
     ////////////////////
 
     assign finish = finishCNN;
-
     
     ///////////////////////
     // PORTMAPS VARIABLES
@@ -129,20 +133,28 @@ module CNN (start,reset,finish,clk);
         if(start == 1'b1 & ((DMA_start == 1 & DMA_finish == 1) | (DMA_start == 0)))
         begin
             // Start layers loop
-            if(layerCounter < 6 ) begin
+            if(layerCounter < 5 ) begin
                 // layerCounter even = convolution, odd = pooling
                 if (layerCounter%2 == 0) begin
                     
                 end 
                 else begin
                     // start pooling layer loop
+                    if (poolingCounter == 0 & poolingWindowX == 0 & poolingWindowY == 0) begin
+                        readAdress = imageStartingAdress[layerCounter] - 2;
+                        writeAdress = imageStartingAdress[layerCounter + 1] - 1;
+                    end
                     if (poolingCounter < featureMapNumber[layerCounter]) begin
                         if (poolingWindowX < featureMapSize[layerCounter]-1) begin
                             if (poolingWindowY < featureMapSize[layerCounter]-1) begin
                                 if(poolingState == 0) begin
                                     if (DMA_start == 0) begin
                                         // TODO:: Rewrite the next instructions
-                                        DMA_start = 1; DMA_start_address = DMA_start_address + 25; DMA_write_to_MEM = 0; DMA_Write_OR_Read = 1; DMA_pooling = 1; DMA_next_window=0;
+                                        readAdress = readAdress + 2;
+                                        DMA_start_address = readAdress;
+                                        DMA_offset = featureMapSize[layerCounter]; 
+                                        DMA_read_write_filter_bias = 0; 
+                                        DMA_start = 1;
                                     end else begin
                                         poolingState = 1; 
                                         DMA_start = 0;
@@ -151,7 +163,12 @@ module CNN (start,reset,finish,clk);
                                     pool_start = 1;
                                     if (pool_finish == 1) begin
                                         // Save Data to memory
-                                        DMA_start = 1; DMA_start_address = 1000; DMA_write_to_MEM = 1; DMA_Write_OR_Read = 1; DMA_pooling = 0;
+                                        writeAdress = writeAdress + 1;
+                                        DMA_start_address = writeAdress;
+                                        DMA_read_write_filter_bias = 1; 
+                                        DMA_CNN_input_data = window_result;
+                                        DMA_start = 1;
+
                                         poolingState = 2;
                                     end
                                 end else begin
@@ -161,6 +178,7 @@ module CNN (start,reset,finish,clk);
                                 end
                             end else begin
                                 poolingWindowY = 0;
+                                DMA_start_address = DMA_start_address + featureMapSize[layerCounter];
                                 poolingWindowX += 2;
                             end
                         end else begin

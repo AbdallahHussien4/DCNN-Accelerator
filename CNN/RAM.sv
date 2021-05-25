@@ -1,11 +1,12 @@
 module RAM (enable, clk, address, write, output_data, offset, input_data, finish);
-	input clk, enable, write, finish;
+	input clk, enable, write;
 	input shortint address, offset;
 	input shortint input_data;
 
 	output shortint output_data[4:0][4:0];
+	output finish;
 
-	shortint mem [100000:0];
+	shortint mem [1000000:0] = '{1000001{2048}};
 	reg finish_flag;
 
 	assign finish = finish_flag;
@@ -15,13 +16,13 @@ module RAM (enable, clk, address, write, output_data, offset, input_data, finish
 	end
 
 	always @(posedge clk) begin
-		if (enable & write & !finish) begin
+		if (enable & write & !finish_flag) begin
 			mem[address] = input_data;
 			finish_flag = 1;
 		end
 	end
 	always @(negedge clk) begin
-		if(enable & !write & !finish) begin
+		if(enable & !write & !finish_flag) begin
 			output_data[0] <= mem[address +: 5];
 			output_data[1] <= mem[address + (offset * 1) +: 5];
 			output_data[2] <= mem[address + (offset * 2) +: 5];
