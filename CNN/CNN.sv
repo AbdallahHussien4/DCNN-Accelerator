@@ -25,7 +25,7 @@ module CNN (start,reset,finish,clk);
 
     int filtersStartingAdress[0:2] = {0,150,2550};
     int biasStartingAdress[0:2] = {50550,50556,50572};
-    int imageStartingAdress[0:5] = {50692,51716,56420,57596,59196,59596};
+    int imageStartingAdress[0:5] = {50692,0,56420,57596,59196,59596};
     int fcStartingAdress = 59716;
 
     shortint readAdress , writeAdress;
@@ -174,9 +174,11 @@ module CNN (start,reset,finish,clk);
                                         poolingState = 2;
                                     end
                                 end else begin
-                                    DMA_start = 0;
-                                    poolingWindowY += 2;
-                                    poolingState = 0;
+                                    if (DMA_finish == 1) begin
+                                        DMA_start = 0;
+                                        poolingWindowY += 2;
+                                        poolingState = 0;
+                                    end
                                 end
                             end else begin
                                 poolingWindowY = 0;
