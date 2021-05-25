@@ -2,15 +2,15 @@ module Filter_Buffer_5x5 (read, input_filter, finish, output_filter, index_buffe
 
     input read, bias_or_filter;
     input shortint index_bias, index_buffer;
-    input shortint input_filter [4:0][4:0];
-    input shortint input_bias[119:0];
+    input shortint input_filter [0:4][0:4];
+    input shortint input_bias[0:119];
 
-    output shortint output_filter [4:0][4:0];
+    output shortint output_filter [0:4][0:4];
 	output shortint output_bias;
     output finish;
 
-    shortint buffer [1919:0][4:0][4:0];
-    shortint bias_buffer [119:0];
+    shortint buffer [0:1919][0:4][0:4];
+    shortint bias_buffer [0:119];
     reg finish;
 
     always @(posedge(read))

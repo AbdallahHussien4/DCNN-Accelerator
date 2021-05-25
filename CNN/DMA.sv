@@ -27,26 +27,31 @@ module DMA (
     input shortint address, filter_number;
     input shortint offset;
     input shortint CNN_input_data;
-    input shortint RAM_input_data [4:0][4:0];
+    input shortint RAM_input_data [0:4][0:4];
 
     output RAM_write, finish_read, RAM_enable;
     output shortint RAM_address, RAM_offset;
     output shortint RAM_output_data ;
-    output shortint CNN_output_data [4:0][4:0];
+    output shortint CNN_output_data [0:4][0:4];
 
     output FB_write, FB_bias_or_filter;
     output shortint FB_index_filter;
-    output shortint FB_filter [4:0][4:0];
-    output shortint FB_bias[119:0];
+    output shortint FB_filter [0:4][0:4];
+    output shortint FB_bias[0:119];
 
     reg RAM_write, finish_read, RAM_enable, FB_bias_or_filter, FB_write;
     shortint inner_address;
-    shortint bias[119:0];
+    shortint bias[0:119];
     int biasCounter, filter_index;
     
     
     assign RAM_offset = offset;
     
+    always @(reset) begin
+        RAM_enable = 0;
+        RAM_write = 0;
+        finish_read = 0;
+    end
 
     always @(negedge clk) begin
         if(start & read_write_filter_bias == 2'b01) begin

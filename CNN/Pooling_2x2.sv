@@ -1,6 +1,6 @@
 module Pooling_2x2 #(parameter N=5) (start, image_in, finish, pixel_out);
 
-   input shortint image_in [N-1:0][N-1:0];
+   input shortint image_in [0:N-1][0:N-1];
    input start;
    output shortint pixel_out;
    output finish;

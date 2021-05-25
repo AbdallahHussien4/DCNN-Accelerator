@@ -1,19 +1,15 @@
-typedef bit [15:0] fixedPoint;
+typedef shortint fixedPoint;
 module conv (
-  input fixedPoint window [4:0][4:0], filter [4:0][4:0],
+  input fixedPoint window [0:4][0:4], filter [0:4][0:4],
   input start,
   output fixedPoint convResult,
   output finish
 );
   int result;
-  reg [31: 0] products [24:0];
+  reg [31: 0] products [0:24];
   reg finish_temp;
 
   assign finish = finish_temp;
-  initial begin
-    result = 0;
-    products = '{default:0};
-  end
 
   genvar i, j;
     generate

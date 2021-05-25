@@ -3,11 +3,11 @@ module RAM (enable, clk, address, write, output_data, offset, input_data, finish
 	input shortint address, offset;
 	input shortint input_data;
 
-	output shortint output_data[4:0][4:0];
+	output shortint output_data[0:4][0:4];
 	output finish;
 
-	shortint mem [1000000:0] = '{1000001{2048}};
-	reg finish_flag;
+	shortint mem [0:1000000] = '{1000001{2048}};
+	reg finish_flag = 0;
 
 	assign finish = finish_flag;
 	

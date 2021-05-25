@@ -14,18 +14,18 @@ module CNN (start,reset,finish,clk);
     ////////////////////
     reg[15:0] memoryReg;
     int state = 0;
-    shortint featureMapNumber[5:0] = '{1, 6, 6, 16, 16, 120};
-    shortint featureMapSize[6:0] = '{32, 28, 14, 10, 5, 1, 1};
-    shortint filtersGroup[5:0] = '{6,0,16,0,120,0};
+    shortint featureMapNumber[0:5] = '{1, 6, 6, 16, 16, 120};
+    shortint featureMapSize[0:6] = '{32, 28, 14, 10, 5, 1, 1};
+    shortint filtersGroup[0:5] = '{6,0,16,0,120,0};
     shortint result;
     int sum;
     reg finishCNN;
     int layerCounter, poolingCounter;
     int poolingState, poolingWindowX, poolingWindowY;
 
-    int filtersStartingAdress[2:0] = {0,150,2550};
-    int biasStartingAdress[2:0] = {50550,50556,50572};
-    int imageStartingAdress[5:0] = {50692,51716,56420,57596,59196,59596};
+    int filtersStartingAdress[0:2] = {0,150,2550};
+    int biasStartingAdress[0:2] = {50550,50556,50572};
+    int imageStartingAdress[0:5] = {50692,51716,56420,57596,59196,59596};
     int fcStartingAdress = 59716;
 
     shortint readAdress , writeAdress;
@@ -40,8 +40,8 @@ module CNN (start,reset,finish,clk);
     // PORTMAPS VARIABLES
     //////////////////////
 
-    reg [15:0] filter [4:0][4:0];
-    shortint window_result;
+    shortint filter [0:4][0:4];
+    shortint conv_result, pooling_result;
 
     // Convolution Variables
     reg conv_start, conv_finish;
@@ -50,31 +50,31 @@ module CNN (start,reset,finish,clk);
     reg pool_start, pool_finish;
 
     // DMA Variables
-    reg [15:0] DMA_CNN_output_data [4:0][4:0];
+    shortint DMA_CNN_output_data [0:4][0:4];
     shortint DMA_CNN_input_data;
     reg DMA_start, DMA_finish, DMA_pooling, DMA_write_to_MEM, DMA_Write_OR_Read, DMA_next_window;
-    reg [15:0] DMA_start_address, DMA_offset, DMA_filter_number;
+    shortint DMA_start_address, DMA_offset, DMA_filter_number;
     reg [1:0] DMA_read_write_filter_bias;
 
     // Memory Variables
-    reg [15:0] Mem_input_data [4:0][4:0];
+    shortint Mem_input_data [0:4][0:4];
     reg Mem_finish, Mem_enable, Mem_write;
-    reg [15:0] Mem_data, Mem_offset, Mem_output_data, Mem_address;
+    shortint Mem_data, Mem_offset, Mem_output_data, Mem_address;
 
     // Filter Buffer Variables
     reg FB_filter_buffer_read, FB_filter_buffer_finish;
     reg FB_write, FB_bias_or_filter;
     shortint FB_index_filter, FB_index_bias, FB_output_bias;
-    shortint FB_filter [4:0][4:0];
-    shortint FB_bias[119:0];
+    shortint FB_filter [0:4][0:4];
+    shortint FB_bias[0:119];
 
 
     ///////////////////////
     // PORTMAPS
     //////////////////////
 
-    conv CONV1 (DMA_CNN_output_data, filter , conv_start, window_result, conv_finish);
-    Pooling_2x2 #( .N (5))  POOL1  (pool_start, DMA_CNN_output_data, pool_finish, window_result);
+    conv CONV1 (DMA_CNN_output_data, filter , conv_start, conv_result, conv_finish);
+    Pooling_2x2 #( .N (5))  POOL1  (pool_start, DMA_CNN_output_data, pool_finish, pooling_result);
     Filter_Buffer_5x5 FILTER_BUFFER (
         FB_filter_buffer_read, 
         FB_filter, 
@@ -126,17 +126,18 @@ module CNN (start,reset,finish,clk);
             poolingState = 0;
             poolingWindowX = 0;
             poolingWindowY = 0;
+            DMA_start = 0;
             // Reset signals and counters
         end
 
         // Check if the CNN can start , if can check if we should wait until DMA finishes
-        if(start == 1'b1 & ((DMA_start == 1 & DMA_finish == 1) | (DMA_start == 0)))
+        else if(start == 1'b1 & ((DMA_start == 1 & DMA_finish == 1) | (DMA_start == 0)))
         begin
             // Start layers loop
             if(layerCounter < 5 ) begin
                 // layerCounter even = convolution, odd = pooling
                 if (layerCounter%2 == 0) begin
-                    
+                    layerCounter += 1;
                 end 
                 else begin
                     // start pooling layer loop
@@ -145,6 +146,7 @@ module CNN (start,reset,finish,clk);
                         writeAdress = imageStartingAdress[layerCounter + 1] - 1;
                     end
                     if (poolingCounter < featureMapNumber[layerCounter]) begin
+                        // $display(layerCounter, featureMapNumber[layerCounter]);
                         if (poolingWindowX < featureMapSize[layerCounter]-1) begin
                             if (poolingWindowY < featureMapSize[layerCounter]-1) begin
                                 if(poolingState == 0) begin
@@ -166,7 +168,7 @@ module CNN (start,reset,finish,clk);
                                         writeAdress = writeAdress + 1;
                                         DMA_start_address = writeAdress;
                                         DMA_read_write_filter_bias = 1; 
-                                        DMA_CNN_input_data = window_result;
+                                        DMA_CNN_input_data = pooling_result;
                                         DMA_start = 1;
 
                                         poolingState = 2;
