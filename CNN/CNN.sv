@@ -14,18 +14,18 @@ module CNN (start,reset,finish,clk);
     ////////////////////
     reg[15:0] memoryReg;
     int state = 0;
-    shortint featureMapNumber[0:5] = '{1, 6, 6, 16, 16, 120};
-    shortint featureMapSize[0:6] = '{32, 28, 14, 10, 5, 1, 1};
+    shortint featureMapNumber[0:5] = '{1, 2, 6, 16, 16, 120}; // 6
+    shortint featureMapSize[0:6] = '{32, 10, 14, 10, 5, 1, 1}; // 28
     shortint filtersGroup[0:5] = '{6,0,16,0,120,0};
     shortint result;
     int sum;
-    reg finishCNN;
+    reg finishCNN, poolingReset;
     int layerCounter, poolingCounter;
     int poolingState, poolingWindowX, poolingWindowY;
 
     int filtersStartingAdress[0:2] = {0,150,2550};
     int biasStartingAdress[0:2] = {50550,50556,50572};
-    int imageStartingAdress[0:5] = {50692,0,56420,57596,59196,59596};
+    int imageStartingAdress[0:5] = {50692,0,250,57596,59196,59596}; // 51716,56420
     int fcStartingAdress = 59716;
 
     shortint readAdress , writeAdress;
@@ -127,6 +127,7 @@ module CNN (start,reset,finish,clk);
             poolingWindowX = 0;
             poolingWindowY = 0;
             DMA_start = 0;
+            poolingReset = 0;
             // Reset signals and counters
         end
 
@@ -141,9 +142,10 @@ module CNN (start,reset,finish,clk);
                 end 
                 else begin
                     // start pooling layer loop
-                    if (poolingCounter == 0 & poolingWindowX == 0 & poolingWindowY == 0) begin
+                    if (poolingReset == 0) begin
                         readAdress = imageStartingAdress[layerCounter] - 2;
                         writeAdress = imageStartingAdress[layerCounter + 1] - 1;
+                        poolingReset =  1;
                     end
                     if (poolingCounter < featureMapNumber[layerCounter]) begin
                         // $display(layerCounter, featureMapNumber[layerCounter]);
@@ -174,11 +176,9 @@ module CNN (start,reset,finish,clk);
                                         poolingState = 2;
                                     end
                                 end else begin
-                                    if (DMA_finish == 1) begin
-                                        DMA_start = 0;
-                                        poolingWindowY += 2;
-                                        poolingState = 0;
-                                    end
+                                    DMA_start = 0;
+                                    poolingWindowY += 2;
+                                    poolingState = 0;
                                 end
                             end else begin
                                 poolingWindowY = 0;
@@ -192,6 +192,7 @@ module CNN (start,reset,finish,clk);
                     end else begin
                         poolingCounter = 0;
                         layerCounter += 1;
+                        poolingReset = 0;
                     end
                 end
             end else begin
