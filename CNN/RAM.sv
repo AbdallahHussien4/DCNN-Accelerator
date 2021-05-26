@@ -12,7 +12,11 @@ module RAM (enable, clk, address, write, output_data, offset, input_data, finish
 	assign finish = finish_flag;
 
 	initial begin
-		$readmemh("MainMemory.mem",mem);
+		// $readmemh("MainMemory.mem",mem);
+		mem[0: 999999] = '{1000000{0}};
+		mem [0: 50549] = '{50550{32}};
+		mem [50550: 50691] = '{142{0}};
+		mem [50692: 51715] = '{1024{2048}};
 	end
 	
 	always @(negedge enable) begin

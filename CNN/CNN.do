@@ -8,6 +8,7 @@ add wave -position end  sim:/CNN/layerCounter
 # add wave -position end  sim:/CNN/poolingState
 # add wave -position end  sim:/CNN/poolingWindowX
 # add wave -position end  sim:/CNN/poolingWindowY
+add wave -position 5  sim:/CNN/kernelCounter
 add wave -position end  sim:/CNN/convWindowX
 add wave -position end  sim:/CNN/convWindowY
 add wave -position end  sim:/CNN/filterCounter

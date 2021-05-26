@@ -15,11 +15,11 @@ module CNN (start,reset,finish,clk);
     reg[15:0] memoryReg;
     int state = 0;
     shortint featureMapNumber[0:5] = '{1, 6, 6, 16, 16, 120}; // 6
-    shortint featureMapSize[0:6] = '{10, 28, 14, 10, 5, 1, 1}; // 32
-    shortint filtersGroup[0:5] = '{1,0,16,0,120,0}; //6
-    shortint filtersSizes[0:5] = '{1,0,96,0,1920,0}; //6
+    shortint featureMapSize[0:6] = '{32, 28, 14, 10, 5, 1, 1}; // 32 28
+    shortint filtersGroup[0:5] = '{6,0,16,0,120,0}; //6
+    shortint filtersSizes[0:5] = '{6,0,96,0,1920,0}; //6
 
-    reg finishCNN, poolingReset, convState, convReset;
+    reg finishCNN, poolingReset, convState, convReset, writeReset;
     int layerCounter, poolingCounter, convResetState;
     int poolingState, poolingWindowX, poolingWindowY;
     int kernelCounter, convWindowX, convWindowY, filterCounter;
@@ -27,7 +27,7 @@ module CNN (start,reset,finish,clk);
 
     int filtersStartingAdress[0:4] = {0,-1,150,-1,2550};
     int biasStartingAdress[0:4] = {50550,-1,50556,-1,50572};
-    int imageStartingAdress[0:5] = {25,200,250,57596,59196,59596}; // {50692,51716,56420,57596,59196,59596}
+    int imageStartingAdress[0:5] = {50692,51716,56420,57596,59196,59596}; // {50692,51716,56420,57596,59196,59596, 59716}
     int fcStartingAdress = 59716;
 
     shortint readAdress , writeAdress, baseReadAdress;
@@ -143,6 +143,7 @@ module CNN (start,reset,finish,clk);
             convReset = 0;
             convState = 0;
             conv_start = 0;
+            writeReset = 0;
             // Reset signals and counters
         end
 
@@ -152,17 +153,14 @@ module CNN (start,reset,finish,clk);
             // Start layers loop
             if(layerCounter < 5 ) begin
                 // layerCounter even = convolution, odd = pooling
-                
+                if (writeReset == 0) begin
+                    writeAdress = imageStartingAdress[layerCounter + 1] - 1;
+                    writeReset = 1;
+                end
                 /////////////////////////////////
                 //// START CONVOLUTION
                 //////////////////////////////// 
                 if (layerCounter%2 == 0) begin
-                    if (convReset == 0) begin
-                        baseReadAdress = imageStartingAdress[layerCounter];
-                        writeAdress = imageStartingAdress[layerCounter + 1] - 1;
-                        readAdress = baseReadAdress - (featureMapSize[layerCounter] * featureMapSize[layerCounter]);
-                        convReset =  1;
-                    end
                     // READ FILTERS OF LAYER
                     if (convResetState == 0) begin
                         if (DMA_start == 0) begin
@@ -189,7 +187,11 @@ module CNN (start,reset,finish,clk);
                     // CONVOLUTION OF LAYER    
                     end else begin
                         if (kernelCounter < filtersGroup[layerCounter]) begin
-
+                            if (convReset == 0) begin
+                                baseReadAdress = imageStartingAdress[layerCounter];
+                                readAdress = baseReadAdress - (featureMapSize[layerCounter] * featureMapSize[layerCounter]);
+                                convReset =  1;
+                            end
                             if (convWindowX < featureMapSize[layerCounter]-4) begin
                                 if (convWindowY < featureMapSize[layerCounter]-4) begin
                                     if(filterCounter < featureMapNumber[layerCounter]) begin
@@ -244,12 +246,14 @@ module CNN (start,reset,finish,clk);
                                 end
                             end else begin
                                 convWindowX = 0;
+                                convReset =  0;
                                 kernelCounter += 1;
                             end
                         end else begin
                             kernelCounter = 0;
                             layerCounter += 1; 
-                            convReset =  0;
+                            convResetState = 0;
+                            writeReset =  0;
                         end
                     end
                 end
