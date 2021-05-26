@@ -27,7 +27,7 @@ module CNN (start,reset,finish,clk);
 
     int filtersStartingAdress[0:4] = {0,-1,150,-1,2550};
     int biasStartingAdress[0:4] = {50550,-1,50556,-1,50572};
-    int imageStartingAdress[0:5] = {25,200,56420,57596,59196,59596}; // {50692,51716,56420,57596,59196,59596}
+    int imageStartingAdress[0:5] = {25,200,250,57596,59196,59596}; // {50692,51716,56420,57596,59196,59596}
     int fcStartingAdress = 59716;
 
     shortint readAdress , writeAdress, baseReadAdress;
@@ -142,6 +142,7 @@ module CNN (start,reset,finish,clk);
             index_filter = 0;
             convReset = 0;
             convState = 0;
+            conv_start = 0;
             // Reset signals and counters
         end
 
@@ -221,7 +222,8 @@ module CNN (start,reset,finish,clk);
                                         // Add bias to conv result
                                         // save result to RAM 
                                         if(DMA_start == 0) begin
-                                            convLocalResult += FB_output_bias[kernelCounter];
+                                            FB_index_bias = kernelCounter;
+                                            convLocalResult += FB_output_bias;
                                             writeAdress = writeAdress + 1;
                                             DMA_start_address = writeAdress;
                                             DMA_read_write_filter_bias = 1; 
@@ -251,12 +253,6 @@ module CNN (start,reset,finish,clk);
                         end
                     end
                 end
-
-
-
-
-
-
 
 
                 /////////////////////////////////

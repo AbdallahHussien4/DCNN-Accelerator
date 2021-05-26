@@ -29,6 +29,7 @@ module conv (
   end
   always @(negedge(start)) begin
     finish_temp = 0;
+    result = 0;
   end
 // TODO:: Should take into consideration overflow if happened
   assign convResult = result[26:11];

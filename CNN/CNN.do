@@ -8,6 +8,16 @@ add wave -position end  sim:/CNN/layerCounter
 # add wave -position end  sim:/CNN/poolingState
 # add wave -position end  sim:/CNN/poolingWindowX
 # add wave -position end  sim:/CNN/poolingWindowY
+add wave -position end  sim:/CNN/convWindowX
+add wave -position end  sim:/CNN/convWindowY
+add wave -position end  sim:/CNN/filterCounter
+add wave -position end  sim:/CNN/conv_start
+add wave -position end  sim:/CNN/conv_finish
+add wave -position end  sim:/CNN/CONV1/window
+add wave -position end  sim:/CNN/CONV1/filter
+add wave -position end  sim:/CNN/CONV1/products
+add wave -position end  sim:/CNN/convLocalResult
+add wave -position end  sim:/CNN/CONV1/convResult
 add wave -position end  sim:/CNN/DMA_start
 add wave -position end  sim:/CNN/DMA_finish
 add wave -position end  sim:/CNN/convResetState
@@ -46,4 +56,4 @@ force -freeze sim:/CNN/start 1 0
 force -freeze sim:/CNN/reset 1 0
 run 50 ps
 force -freeze sim:/CNN/reset 0 0
-run 10 ns
+run 100 us
