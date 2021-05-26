@@ -1,6 +1,6 @@
 module RAM (enable, clk, address, write, output_data, offset, input_data, finish);
 	input clk, enable, write;
-	input shortint address, offset;
+	input reg[15:0] address, offset;
 	input shortint input_data;
 
 	output shortint output_data[0:4][0:4];
