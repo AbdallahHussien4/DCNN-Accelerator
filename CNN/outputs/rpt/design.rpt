@@ -2,35 +2,35 @@ Report Physical info:
 ------------------------+-------------+-----------+------------
                         |             |Area (squm)|Leakage (uW)
 ------------------------+-------------+-----------+------------
-Design Name             |CNN          |           |            
-  Total Instances       |        11936|      38699|     709.572
+Design Name             |main         |           |            
+  Total Instances       |         6045|      10679|     224.299
     Macros              |            0|          0|       0.000
     Pads                |            0|          0|       0.000
     Phys                |            0|          0|       0.000
     Blackboxes          |           25|          0|       0.000
-    Cells               |        11911|      38699|     709.572
+    Cells               |         6020|      10679|     224.299
       Buffers           |            0|          0|       0.000
-      Inverters         |           85|         45|       1.220
-      Clock-Gates       |          122|        487|       7.215
-      Combinational     |         4701|       6500|     147.113
+      Inverters         |           93|         49|       1.335
+      Clock-Gates       |           19|         76|       1.124
+      Combinational     |         5198|       7343|     165.670
       Latches           |            0|          0|       0.000
-      FlipFlops         |         7003|      31668|     554.023
-       Single-Bit FF    |         7003|      31668|     554.023
+      FlipFlops         |          710|       3211|      56.170
+       Single-Bit FF    |          710|       3211|      56.170
        Multi-Bit FF     |            0|          0|       0.000
-       Clock-Gated      |         6981|           |            
-       Bits             |         7003|      31668|     554.023
+       Clock-Gated      |          678|           |            
+       Bits             |          710|       3211|      56.170
          Load-Enabled   |            0|           |            
-         Clock-Gated    |         6981|           |            
+         Clock-Gated    |          678|           |            
   Tristate Pin Count    |            0|           |            
 Physical Info           |Placed       |           |            
-  Chip Size (mm x mm)   |0.314 x 0.314|      98574|            
+  Chip Size (mm x mm)   |0.193 x 0.193|      37407|            
   Fixed Cell Area       |             |          0|            
     Phys Only           |            0|          0|            
-  Placeable Area        |             |      64323|            
-  Movable Cell Area     |             |      38699|            
+  Placeable Area        |             |      17740|            
+  Movable Cell Area     |             |      10679|            
   Utilization (%)       |           60|           |            
   Chip Utilization (%)  |           60|           |            
-  Total Wire Length (mm)|      618.154|           |            
-  Longest Wire (mm)     |        0.470|           |            
-  Average Wire (mm)     |        0.076|           |            
+  Total Wire Length (mm)|       18.378|           |            
+  Longest Wire (mm)     |        0.231|           |            
+  Average Wire (mm)     |        0.002|           |            
 ------------------------+-------------+-----------+------------
