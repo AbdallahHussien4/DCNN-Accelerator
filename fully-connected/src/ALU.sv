@@ -10,10 +10,12 @@ module ALU #(parameter SIZE=16, parameter PRECISION=11, parameter INPUT_SZ=4) (
   localparam LOAD_BIAS_WEIGHTS = 2'd1;
   localparam LOAD_UD           = 2'd2;
 
-  reg [2*SIZE-1: 0] r_accumulator;
+  reg [SIZE-1: 0] r_accumulator;
   reg [0: INPUT_SZ-1][SIZE-1: 0] r_weights;
   reg [0: INPUT_SZ-1][SIZE-1: 0] r_values;
   reg [SIZE-1: 0] r_bias;
+
+  reg [2*SIZE-1: 0] product;
 
   always @(*) begin
     case (load_enable)
@@ -35,11 +37,12 @@ module ALU #(parameter SIZE=16, parameter PRECISION=11, parameter INPUT_SZ=4) (
     else if (enable) begin
       r_accumulator = 0;
       for (int i = 0; i < INPUT_SZ; i++) begin
-        r_accumulator += r_weights[i] * r_values[i];
+        product = r_weights[i] * r_values[i];
+        r_accumulator += product[PRECISION + SIZE - 1: PRECISION];
       end
-      r_accumulator += {{(SIZE-PRECISION){1'b0}}, r_bias, {(PRECISION){1'b0}}};
+      r_accumulator += r_bias;
     end
   end
 
-  assign value = r_accumulator[PRECISION + SIZE - 1: PRECISION];
+  assign value = r_accumulator;
 endmodule
