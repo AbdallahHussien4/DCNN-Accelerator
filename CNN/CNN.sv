@@ -15,21 +15,22 @@ module CNN (start,reset,finish,clk);
     reg[15:0] memoryReg;
     int state = 0;
     shortint featureMapNumber[0:5] = '{1, 6, 6, 16, 16, 120}; // 6
-    shortint featureMapSize[0:6] = '{32, 28, 14, 10, 5, 1, 1}; // 28
-    shortint filtersGroup[0:5] = '{6,0,16,0,120,0};
-    shortint filtersSizes[0:5] = '{6,0,96,0,1920,0};
-    shortint result;
-    int sum;
-    reg finishCNN, poolingReset;
+    shortint featureMapSize[0:6] = '{10, 28, 14, 10, 5, 1, 1}; // 32
+    shortint filtersGroup[0:5] = '{1,0,16,0,120,0}; //6
+    shortint filtersSizes[0:5] = '{1,0,96,0,1920,0}; //6
+
+    reg finishCNN, poolingReset, convState, convReset;
     int layerCounter, poolingCounter, convResetState;
     int poolingState, poolingWindowX, poolingWindowY;
+    int kernelCounter, convWindowX, convWindowY, filterCounter;
+    shortint convLocalResult;
 
     int filtersStartingAdress[0:4] = {0,-1,150,-1,2550};
     int biasStartingAdress[0:4] = {50550,-1,50556,-1,50572};
-    int imageStartingAdress[0:5] = {50692,51716,56420,57596,59196,59596}; // 51716,56420
+    int imageStartingAdress[0:5] = {25,200,56420,57596,59196,59596}; // {50692,51716,56420,57596,59196,59596}
     int fcStartingAdress = 59716;
 
-    shortint readAdress , writeAdress;
+    shortint readAdress , writeAdress, baseReadAdress;
 
     ////////////////////
     // OUTPUT ASSIGNS
@@ -65,7 +66,7 @@ module CNN (start,reset,finish,clk);
     // Filter Buffer Variables
     reg FB_filter_buffer_finish;
     reg FB_write, FB_bias_or_filter;
-    shortint FB_index_filter, FB_index_bias, FB_output_bias;
+    shortint FB_index_filter, FB_index_bias, FB_output_bias, index_filter;
     shortint FB_filter [0:4][0:4];
     shortint FB_bias[0:119];
 
@@ -86,7 +87,8 @@ module CNN (start,reset,finish,clk);
         FB_bias, 
         FB_bias_or_filter, 
         FB_output_bias,
-        reset
+        reset,
+        index_filter
         );
     DMA DMA1 (
         DMA_start,
@@ -132,6 +134,14 @@ module CNN (start,reset,finish,clk);
             DMA_start = 0;
             poolingReset = 0;
             convResetState = 0;
+            kernelCounter = 0;
+            convWindowX =0;
+            convWindowY = 0;
+            filterCounter = 0;
+            convLocalResult = 0;
+            index_filter = 0;
+            convReset = 0;
+            convState = 0;
             // Reset signals and counters
         end
 
@@ -146,6 +156,12 @@ module CNN (start,reset,finish,clk);
                 //// START CONVOLUTION
                 //////////////////////////////// 
                 if (layerCounter%2 == 0) begin
+                    if (convReset == 0) begin
+                        baseReadAdress = imageStartingAdress[layerCounter];
+                        writeAdress = imageStartingAdress[layerCounter + 1] - 1;
+                        readAdress = baseReadAdress - (featureMapSize[layerCounter] * featureMapSize[layerCounter]);
+                        convReset =  1;
+                    end
                     // READ FILTERS OF LAYER
                     if (convResetState == 0) begin
                         if (DMA_start == 0) begin
@@ -171,8 +187,68 @@ module CNN (start,reset,finish,clk);
                         end
                     // CONVOLUTION OF LAYER    
                     end else begin
+                        if (kernelCounter < filtersGroup[layerCounter]) begin
 
-                        
+                            if (convWindowX < featureMapSize[layerCounter]-4) begin
+                                if (convWindowY < featureMapSize[layerCounter]-4) begin
+                                    if(filterCounter < featureMapNumber[layerCounter]) begin
+                                        // load window for different images
+                                        // apply convolution
+                                        // Add result to previous conv result
+                                        if(convState == 0) begin
+                                            if (DMA_start == 0) begin
+                                                readAdress = readAdress + (featureMapSize[layerCounter] * featureMapSize[layerCounter]);
+                                                DMA_start_address = readAdress;
+                                                DMA_offset = featureMapSize[layerCounter]; 
+                                                DMA_read_write_filter_bias = 0; 
+                                                DMA_start = 1;
+                                            end else begin
+                                                DMA_start = 0;
+                                                convState = 1;    
+                                            end
+                                        end else begin
+                                            index_filter = filterCounter +  kernelCounter * featureMapNumber[layerCounter];
+                                            conv_start = 1;
+                                            if (conv_finish == 1) begin
+                                                conv_start = 0;
+                                                convLocalResult += conv_result;
+                                                filterCounter += 1;
+                                                convState = 0;
+                                            end 
+                                        end
+                                    end
+                                    else begin
+                                        // Add bias to conv result
+                                        // save result to RAM 
+                                        if(DMA_start == 0) begin
+                                            convLocalResult += FB_output_bias[kernelCounter];
+                                            writeAdress = writeAdress + 1;
+                                            DMA_start_address = writeAdress;
+                                            DMA_read_write_filter_bias = 1; 
+                                            DMA_CNN_input_data = convLocalResult;
+                                            DMA_start = 1;
+                                        end else begin
+                                            convLocalResult = 0;
+                                            filterCounter = 0;
+                                            convWindowY += 1;
+                                            DMA_start = 0;
+                                            baseReadAdress += 1;
+                                            readAdress = baseReadAdress - (featureMapSize[layerCounter] * featureMapSize[layerCounter]);
+                                        end
+                                    end
+                                end else begin
+                                    convWindowY = 0;
+                                    convWindowX += 1;
+                                end
+                            end else begin
+                                convWindowX = 0;
+                                kernelCounter += 1;
+                            end
+                        end else begin
+                            kernelCounter = 0;
+                            layerCounter += 1; 
+                            convReset =  0;
+                        end
                     end
                 end
 
@@ -199,7 +275,6 @@ module CNN (start,reset,finish,clk);
                             if (poolingWindowY < featureMapSize[layerCounter]-1) begin
                                 if(poolingState == 0) begin
                                     if (DMA_start == 0) begin
-                                        // TODO:: Rewrite the next instructions
                                         readAdress = readAdress + 2;
                                         DMA_start_address = readAdress;
                                         DMA_offset = featureMapSize[layerCounter]; 

@@ -1,12 +1,12 @@
-module Filter_Buffer_5x5 (read, input_filter, finish, output_filter, index_buffer, index_bias, input_bias, bias_or_filter, output_bias, reset);
+module Filter_Buffer_5x5 (read, input_filter, finish, output_filter, index_buffer, index_bias, input_bias, bias_or_filter, output_bias, reset, index_filter);
 
     input read, bias_or_filter, reset;
-    input shortint index_bias, index_buffer;
+    input shortint index_bias, index_buffer, index_filter;
     input shortint input_filter [0:4][0:4];
     input shortint input_bias[0:119];
 
     output shortint output_filter [0:4][0:4];
-	  output shortint output_bias;
+	output shortint output_bias;
     output finish;
 
     shortint buffer [0:1919][0:4][0:4];
@@ -35,6 +35,6 @@ module Filter_Buffer_5x5 (read, input_filter, finish, output_filter, index_buffe
     	finish = 0;
 	end
 
-    assign output_filter = buffer[index_buffer];
+    assign output_filter = buffer[index_filter];
 	assign output_bias = bias_buffer[index_bias];
 endmodule
