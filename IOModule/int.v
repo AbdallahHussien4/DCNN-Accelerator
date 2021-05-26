@@ -20,3 +20,4 @@ DMA  #(.rowSize(rowSize), .blockSize(blockSize)) dma_1 (.decompressedRow(decompr
 RAM #() ram_1 (.enable(ram_en), .clk(clk), .address(address), .write(write), .output_data(), .offset(offset), .input_data(blockToWrite), .finish(finish));
 
 endmodule
+

@@ -17,7 +17,6 @@ always @(negedge clk) begin
 
 if (enable) begin
 
-
     compressedDataTmp = 0;
     compressedDataTmp[sectionSize:0] = inputSection;
     if (i == 0)
