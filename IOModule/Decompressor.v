@@ -27,7 +27,6 @@ always @(posedge enable) begin
         totalDigits = totalDigits + numberOfDigits;
         decompressedDataTmp = decompressedDataTmp >> rowSize - totalDigits;
         decompressedData = decompressedData + decompressedDataTmp;
-
         compressedDataTmp = compressedDataTmp >> sectionSize;
         currentDigit = ! currentDigit;
     end
@@ -35,7 +34,7 @@ always @(posedge enable) begin
 end    
 
 
-always @(negedge rst) begin
+always @(posedge rst) begin
     decompressedData = {rowSize{1'b0}};
     totalDigits = 0;
     currentDigit = 0;

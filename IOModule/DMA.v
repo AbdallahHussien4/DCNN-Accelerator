@@ -20,10 +20,9 @@ always @(negedge clk) begin
     begin
         ram_address = i;
         decompressedRowTMP = decompressedRow;
-        if(i >= rowSize) begin
+        if(i >= rowSize / blockSize) begin
             done = 1;
             ram_enable = 1'b0;
-            i = 0;
             ram_write = 0;
         end
         else begin

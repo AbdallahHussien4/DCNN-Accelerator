@@ -21,8 +21,12 @@ force -freeze sim:/INT_D/decompressedRow 000000011111111111111110000000000000000
 force -freeze sim:/IO_Unit/compressedData 0000000000001010 0
 
 0000000000001010 0000000000000010 ===> 00000111111111100
+
+   
+
    Loading
 0000000000000010 0000000000001010 ===> 00000111111111100
+force -freeze sim:/IO_Unit/compressedData 0000000000001010 0
 
 
 force -freeze sim:/INT_D/dma_enable 1 0
