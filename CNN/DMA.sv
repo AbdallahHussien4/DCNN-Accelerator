@@ -20,9 +20,10 @@ module DMA (
     FB_filter,
     FB_index_filter,
     FB_bias,
-    FB_bias_or_filter);
+    FB_bias_or_filter,
+    FB_finish);
     
-    input start, clk, reset, RAM_finish;
+    input start, clk, reset, RAM_finish, FB_finish;
     input [1:0] read_write_filter_bias;
     input shortint address, filter_number;
     input shortint offset;
@@ -42,7 +43,7 @@ module DMA (
     reg RAM_write, finish_read, RAM_enable, FB_bias_or_filter, FB_write;
     shortint inner_address;
     shortint bias[0:119];
-    int biasCounter, filter_index;
+    int biasCounter, filter_index, temp;
     
     
     assign RAM_offset = offset;
@@ -51,6 +52,8 @@ module DMA (
         RAM_enable = 0;
         RAM_write = 0;
         finish_read = 0;
+        FB_write = 0;
+        biasCounter = 0;
     end
 
     always @(negedge clk) begin
@@ -90,13 +93,16 @@ module DMA (
                     RAM_address = inner_address;
 
                     if(RAM_finish == 1'b1) begin
-                        FB_write = 1;
                         FB_bias_or_filter = 1;
                         FB_filter = RAM_input_data;
                         FB_index_filter = filter_index;
+                        FB_write = 1;
                         RAM_enable = 0;
-                        FB_write = 0;
-                        filter_index += 1;
+                        if (FB_finish == 1) begin
+                            FB_write = 0;
+                            filter_index += 1;
+                            inner_address += 25;
+                        end
                     end
                 end else begin
                     filter_index = 0;
@@ -114,21 +120,26 @@ module DMA (
 
                     if(biasCounter < 4) begin
                         if(RAM_finish == 1'b1) begin
-                            bias[(biasCounter * 25) +: 25] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3], RAM_input_data[4]};
+                            temp= (biasCounter * 25);
+                            bias[temp +: 25] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3], RAM_input_data[4]};
                             biasCounter += 1;
                             inner_address += 25;
                             RAM_enable = 0;
                         end
                     end else begin
                         if(RAM_finish == 1'b1) begin
-                            bias[(biasCounter * 25) +: 20] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3]};
-                            biasCounter += 1;
-                            inner_address += 25;
+                            temp= (biasCounter * 25);
+                            bias[ temp +: 20] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3]};
                             RAM_enable = 0;
 
-                            FB_write = 1;
                             FB_bias_or_filter = 0;
                             FB_bias = bias;
+                            FB_write = 1;
+
+                            if (FB_finish == 1) begin
+                                biasCounter += 1;
+                                FB_write = 0;
+                            end
                         end
                     end
                 end else begin 
