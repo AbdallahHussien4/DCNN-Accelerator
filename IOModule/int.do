@@ -17,6 +17,14 @@ sim:/INT_D/blockToWrite \
 sim:/INT_D/address
 force -freeze sim:/INT_D/clk 1 0, 0 {50 ps} -r 100
 force -freeze sim:/INT_D/decompressedRow 00000001111111111111111000000000000000010101010101010101010101010101010 0
+
+force -freeze sim:/IO_Unit/compressedData 0000000000001010 0
+
+0000000000001010 0000000000000010 ===> 00000111111111100
+   Loading
+0000000000000010 0000000000001010 ===> 00000111111111100
+
+
 force -freeze sim:/INT_D/dma_enable 1 0
 run
 
