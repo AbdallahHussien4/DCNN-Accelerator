@@ -5,13 +5,14 @@ input cnn_img;
 input interrupt;
 output io_interface_en;
 input dma_done;
-output reg done;
+output done;
 input decompressor_done;
 output reg dma_enable;
 output decompressor_en;
 
 assign io_interface_en = ~load && interrupt;
 assign decompressor_en = load && interrupt && cnn_img;
+assign done = dma_done;
 
 always @(posedge dma_done) begin
     dma_enable = 0;

@@ -65,32 +65,34 @@ proc runClockCycles { count } {
   run $t $timeUnits
 }
 
+variable done_signal [examine done]
+
 # Run reset for 1 cycle
 runClockCycles 1
 force rst 0 -deposit
 
 # Send CNN parameters
-set fp [open "input_cnn" r]
+#set fp [open "input_cnn" r]
 
-force interrupt 1 -deposit
-force load_process 0 -deposit
-force cnn_image 0 -deposit
+#force interrupt 1 -deposit
+#force load_process 0 -deposit
+#force cnn_image 0 -deposit
 
-while { [gets $fp data] >= 0 } {
-  set bit_strings [splitOnWhiteSpace $data]
-  foreach i $bit_strings {
-    force din $i -deposit
-    runClockCycles 1
-  }
-  force load_process 1
-  runClockCycles 1
-  force load_process 0
-}
+#while { [gets $fp data] >= 0 } {
+#  set bit_strings [splitOnWhiteSpace $data]
+#  foreach i $bit_strings {
+#    force din $i -deposit
+#    runClockCycles 1
+#  }
+#  force load_process 1
+#  runClockCycles 1
+#  force load_process 0
+#}
 
-close $fp
+#close $fp
 
-force interrupt 0 -deposit
-runClockCycles 1
+#force interrupt 0 -deposit
+#runClockCycles 1
 
 # Send Image
 set fp [open "input_image" r]
@@ -101,12 +103,25 @@ force cnn_image 1 -deposit
 
 while { [gets $fp data] >= 0 } {
   set bit_strings [splitOnWhiteSpace $data]
-  foreach i $bit_strings {
-    force din $i -deposit
+
+  variable list_length [llength bit_strings]
+
+  variable current_data
+
+  for {set i $list_length} {$i >= 0} {incr i -1} {
+    set current_data [lindex $bit_strings $i]
+    force din $current_data -deposit
     runClockCycles 1
   }
+
   force load_process 1
-  runClockCycles 1
+
+  set done_signal [examine done]
+  while {$done_signal == 0} {
+     runClockCycles 1
+     set done_signal [examine done]
+  }
+
   force load_process 0
 }
 
