@@ -1,10 +1,11 @@
-module IO_Controller (load, io_interface_en, decompressor_en, interrupt, cnn_img, dma_done, dma_enable, decompressor_done);
+module IO_Controller (load, io_interface_en, decompressor_en, interrupt, cnn_img, dma_done, done,dma_enable, decompressor_done);
 
 input load;
 input cnn_img;
 input interrupt;
 output io_interface_en;
 input dma_done;
+output reg done;
 input decompressor_done;
 output reg dma_enable;
 output decompressor_en;
@@ -14,12 +15,12 @@ assign decompressor_en = load && interrupt && cnn_img;
 
 always @(posedge dma_done) begin
     dma_enable = 0;
+
 end
 
-always @(posedge decompressor_done) begin
+always @(posedge load) begin
     dma_enable = 1;
 end
-
 
 
 endmodule
