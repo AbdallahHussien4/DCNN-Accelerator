@@ -4,15 +4,19 @@ module Pooling_2x2 #(parameter N=5) (start, image_in, finish, pixel_out);
    input start;
    output shortint pixel_out;
    output finish;
-   reg finish;
+   reg finish_done;
 
-   always @(posedge(start))
+    assign finish = finish_done;
+   always @(*)
      begin
-	pixel_out = (image_in[0][0] + image_in[0][1] + image_in[1][0] + image_in[1][1]) >> 2;
-	finish = 1;
+    if(start)
+        begin
+        pixel_out = (image_in[0][0] + image_in[0][1] + image_in[1][0] + image_in[1][1]) >> 2;
+        finish_done = 1;
+        end
+        else begin
+        finish_done = 0;
+        end
     end
-    always @(negedge(start))
-     begin
-	finish = 0;
-    end
+    
 endmodule

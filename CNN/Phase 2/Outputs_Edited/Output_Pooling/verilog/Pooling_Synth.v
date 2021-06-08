@@ -1,9 +1,9 @@
 /*
  * Created by 
-   ../bin/Linux-x86_64-O/oasysGui 19.2-p002 on Wed May  5 19:22:19 2021
+   ../bin/Linux-x86_64-O/oasysGui 19.2-p002 on Wed May  5 20:10:16 2021
  * (C) Mentor Graphics Corporation
  */
-/* CheckSum: 2062730836 */
+/* CheckSum: 4002056938 */
 
 module datapath(\image_in[0][1] , \image_in[1][0] , \image_in[1][1] , 
       \image_in[0][0] , p_0);
@@ -121,6 +121,7 @@ module Pooling_2x2(start, \image_in[0][0] , \image_in[0][1] , \image_in[0][2] ,
    output finish;
    output [15:0]pixel_out;
 
+   wire n_0_0;
    wire n_0_1;
    wire n_0_2;
    wire n_0_3;
@@ -134,28 +135,27 @@ module Pooling_2x2(start, \image_in[0][0] , \image_in[0][1] , \image_in[0][2] ,
    wire n_0_11;
    wire n_0_12;
    wire n_0_13;
-   wire n_0_0;
 
-   assign finish = 1'b1;
+   assign finish = start;
    assign pixel_out[15] = 1'b0;
    assign pixel_out[14] = 1'b0;
 
-   DFF_X1 \pixel_out_reg[13]  (.D(n_0_0), .CK(start), .Q(pixel_out[13]), .QN());
-   DFF_X1 \pixel_out_reg[12]  (.D(n_0_13), .CK(start), .Q(pixel_out[12]), .QN());
-   DFF_X1 \pixel_out_reg[11]  (.D(n_0_12), .CK(start), .Q(pixel_out[11]), .QN());
-   DFF_X1 \pixel_out_reg[10]  (.D(n_0_11), .CK(start), .Q(pixel_out[10]), .QN());
-   DFF_X1 \pixel_out_reg[9]  (.D(n_0_10), .CK(start), .Q(pixel_out[9]), .QN());
-   DFF_X1 \pixel_out_reg[8]  (.D(n_0_9), .CK(start), .Q(pixel_out[8]), .QN());
-   DFF_X1 \pixel_out_reg[7]  (.D(n_0_8), .CK(start), .Q(pixel_out[7]), .QN());
-   DFF_X1 \pixel_out_reg[6]  (.D(n_0_7), .CK(start), .Q(pixel_out[6]), .QN());
-   DFF_X1 \pixel_out_reg[5]  (.D(n_0_6), .CK(start), .Q(pixel_out[5]), .QN());
-   DFF_X1 \pixel_out_reg[4]  (.D(n_0_5), .CK(start), .Q(pixel_out[4]), .QN());
-   DFF_X1 \pixel_out_reg[3]  (.D(n_0_4), .CK(start), .Q(pixel_out[3]), .QN());
-   DFF_X1 \pixel_out_reg[2]  (.D(n_0_3), .CK(start), .Q(pixel_out[2]), .QN());
-   DFF_X1 \pixel_out_reg[1]  (.D(n_0_2), .CK(start), .Q(pixel_out[1]), .QN());
-   DFF_X1 \pixel_out_reg[0]  (.D(n_0_1), .CK(start), .Q(pixel_out[0]), .QN());
-   datapath i_0_1 (.\image_in[0][1] (\image_in[0][1] ), .\image_in[1][0] (
+   DLH_X1 \pixel_out_reg[13]  (.D(n_0_13), .G(start), .Q(pixel_out[13]));
+   DLH_X1 \pixel_out_reg[12]  (.D(n_0_12), .G(start), .Q(pixel_out[12]));
+   DLH_X1 \pixel_out_reg[11]  (.D(n_0_11), .G(start), .Q(pixel_out[11]));
+   DLH_X1 \pixel_out_reg[10]  (.D(n_0_10), .G(start), .Q(pixel_out[10]));
+   DLH_X1 \pixel_out_reg[9]  (.D(n_0_9), .G(start), .Q(pixel_out[9]));
+   DLH_X1 \pixel_out_reg[8]  (.D(n_0_8), .G(start), .Q(pixel_out[8]));
+   DLH_X1 \pixel_out_reg[7]  (.D(n_0_7), .G(start), .Q(pixel_out[7]));
+   DLH_X1 \pixel_out_reg[6]  (.D(n_0_6), .G(start), .Q(pixel_out[6]));
+   DLH_X1 \pixel_out_reg[5]  (.D(n_0_5), .G(start), .Q(pixel_out[5]));
+   DLH_X1 \pixel_out_reg[4]  (.D(n_0_4), .G(start), .Q(pixel_out[4]));
+   DLH_X1 \pixel_out_reg[3]  (.D(n_0_3), .G(start), .Q(pixel_out[3]));
+   DLH_X1 \pixel_out_reg[2]  (.D(n_0_2), .G(start), .Q(pixel_out[2]));
+   DLH_X1 \pixel_out_reg[1]  (.D(n_0_1), .G(start), .Q(pixel_out[1]));
+   DLH_X1 \pixel_out_reg[0]  (.D(n_0_0), .G(start), .Q(pixel_out[0]));
+   datapath i_0_0 (.\image_in[0][1] (\image_in[0][1] ), .\image_in[1][0] (
       \image_in[1][0] ), .\image_in[1][1] (\image_in[1][1] ), .\image_in[0][0] (
-      \image_in[0][0] ), .p_0({n_0_0, n_0_13, n_0_12, n_0_11, n_0_10, n_0_9, 
-      n_0_8, n_0_7, n_0_6, n_0_5, n_0_4, n_0_3, n_0_2, n_0_1, uc_0, uc_1}));
+      \image_in[0][0] ), .p_0({n_0_13, n_0_12, n_0_11, n_0_10, n_0_9, n_0_8, 
+      n_0_7, n_0_6, n_0_5, n_0_4, n_0_3, n_0_2, n_0_1, n_0_0, uc_0, uc_1}));
 endmodule
