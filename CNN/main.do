@@ -7,4 +7,4 @@ force -freeze sim:/main/reset 1 0
 force -freeze sim:/main/start 1 0
 run 50 ps
 force -freeze sim:/main/reset 0 0
-run 100 us
+#run 100 us
