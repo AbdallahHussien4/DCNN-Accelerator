@@ -3,7 +3,7 @@ module booth_tb();
    reg [15:0] A16, B16;
   wire [31:0] out32;
  
-  Booth_Multiplier #(.SIZE(16)) DUT2 (
+  Booth_Multiplier DUT2 (
     .multiplicand(A16),
     .multiplier(B16),
     .product(out32)

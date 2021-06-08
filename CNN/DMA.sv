@@ -121,7 +121,31 @@ module DMA (
                     if(biasCounter < 4) begin
                         if(RAM_finish == 1'b1) begin
                             temp= (biasCounter * 25);
-                            bias[temp +: 25] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3], RAM_input_data[4]};
+                            bias[temp] = RAM_input_data[0][0];
+                            bias[temp + 1] = RAM_input_data[0][1];
+                            bias[temp + 2] = RAM_input_data[0][2];
+                            bias[temp + 3] = RAM_input_data[0][3];
+                            bias[temp + 4] = RAM_input_data[0][4];
+                            bias[temp + 5] = RAM_input_data[1][0];
+                            bias[temp + 6] = RAM_input_data[1][1];
+                            bias[temp + 7] = RAM_input_data[1][2];
+                            bias[temp + 8] = RAM_input_data[1][3];
+                            bias[temp + 9] = RAM_input_data[1][4];
+                            bias[temp + 10] = RAM_input_data[2][0];
+                            bias[temp + 11] = RAM_input_data[2][1];
+                            bias[temp + 12] = RAM_input_data[2][2];
+                            bias[temp + 13] = RAM_input_data[2][3];
+                            bias[temp + 14] = RAM_input_data[2][4];
+                            bias[temp + 15] = RAM_input_data[3][0];
+                            bias[temp + 16] = RAM_input_data[3][1];
+                            bias[temp + 17] = RAM_input_data[3][2];
+                            bias[temp + 18] = RAM_input_data[3][3];
+                            bias[temp + 19] = RAM_input_data[3][4];
+                            bias[temp + 20] = RAM_input_data[4][0];
+                            bias[temp + 21] = RAM_input_data[4][1];
+                            bias[temp + 22] = RAM_input_data[4][2];
+                            bias[temp + 23] = RAM_input_data[4][3];
+                            bias[temp + 24] = RAM_input_data[4][4];
                             biasCounter += 1;
                             inner_address += 25;
                             RAM_enable = 0;
@@ -129,7 +153,26 @@ module DMA (
                     end else begin
                         if(RAM_finish == 1'b1) begin
                             temp= (biasCounter * 25);
-                            bias[ temp +: 20] = {RAM_input_data[0], RAM_input_data[1], RAM_input_data[2], RAM_input_data[3]};
+                            bias[temp] = RAM_input_data[0][0];
+                            bias[temp + 1] = RAM_input_data[0][1];
+                            bias[temp + 2] = RAM_input_data[0][2];
+                            bias[temp + 3] = RAM_input_data[0][3];
+                            bias[temp + 4] = RAM_input_data[0][4];
+                            bias[temp + 5] = RAM_input_data[1][0];
+                            bias[temp + 6] = RAM_input_data[1][1];
+                            bias[temp + 7] = RAM_input_data[1][2];
+                            bias[temp + 8] = RAM_input_data[1][3];
+                            bias[temp + 9] = RAM_input_data[1][4];
+                            bias[temp + 10] = RAM_input_data[2][0];
+                            bias[temp + 11] = RAM_input_data[2][1];
+                            bias[temp + 12] = RAM_input_data[2][2];
+                            bias[temp + 13] = RAM_input_data[2][3];
+                            bias[temp + 14] = RAM_input_data[2][4];
+                            bias[temp + 15] = RAM_input_data[3][0];
+                            bias[temp + 16] = RAM_input_data[3][1];
+                            bias[temp + 17] = RAM_input_data[3][2];
+                            bias[temp + 18] = RAM_input_data[3][3];
+                            bias[temp + 19] = RAM_input_data[3][4];
                             RAM_enable = 0;
 
                             FB_bias_or_filter = 0;
