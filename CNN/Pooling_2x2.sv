@@ -6,10 +6,8 @@ module Pooling_2x2 #(parameter N=5) (start, image_in, finish, pixel_out);
     output finish;
     shortint intermediate_pixel_out;
 
-    always @(posedge start) begin
-        intermediate_pixel_out <= (image_in[0][0] + image_in[0][1] + image_in[1][0] + image_in[1][1]) >> 2;
-    end
-
+    assign intermediate_pixel_out = (image_in[0][0] + image_in[0][1] + image_in[1][0] + image_in[1][1]) >> 2;
+    
     assign finish = start;
     assign pixel_out = intermediate_pixel_out[13:0];
 
