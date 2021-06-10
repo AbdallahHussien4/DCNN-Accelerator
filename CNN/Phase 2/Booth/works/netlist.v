@@ -1507,7 +1507,7 @@ HA_X1 i_1 (.CO (n_1), .S (p_2[17]), .A (p_0[17]), .B (p_1[17]));
 
 endmodule //datapath__0_2
 
-module Booth_Multiplier (multiplicand, multiplier, product);
+module Booth_Multiplier_Routing (multiplicand, multiplier, product);
 
 output [31:0] product;
 input [15:0] multiplicand;

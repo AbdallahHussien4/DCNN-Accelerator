@@ -1,4 +1,4 @@
-module booth_tb();
+module BoothMultTB_Routing();
  	
    reg [15:0] A16, B16;
   wire [31:0] out32;

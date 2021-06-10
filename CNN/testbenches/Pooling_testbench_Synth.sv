@@ -1,4 +1,4 @@
-module pooling_testbench();
+module pooling_testbench_Synth();
 
     localparam N = 5; 
 

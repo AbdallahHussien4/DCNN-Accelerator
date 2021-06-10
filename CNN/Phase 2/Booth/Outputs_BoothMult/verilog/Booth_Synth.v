@@ -875,7 +875,7 @@ module datapath__0_59(p_0, p_1, p_2);
    INV_X1 i_20 (.A(p_0[31]), .ZN(n_18));
 endmodule
 
-module Booth_Multiplier(multiplicand, multiplier, product);
+module Booth_Multiplier_Synth(multiplicand, multiplier, product);
    input [15:0]multiplicand;
    input [15:0]multiplier;
    output [31:0]product;
