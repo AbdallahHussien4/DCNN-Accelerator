@@ -9,7 +9,7 @@ module pooling_testbench();
 
     localparam period = 100; 
 
-    Pooling_2x2 POOL1  (start, image_in[0][0] , image_in[0][1] , image_in[0][2] , 
+    Pooling_2x2_Synth POOL1  (start, image_in[0][0] , image_in[0][1] , image_in[0][2] , 
       image_in[0][3] , image_in[0][4] , image_in[1][0] , image_in[1][1] , 
       image_in[1][2] , image_in[1][3] , image_in[1][4] , image_in[2][0] , 
       image_in[2][1] , image_in[2][2] , image_in[2][3] , image_in[2][4] , 
