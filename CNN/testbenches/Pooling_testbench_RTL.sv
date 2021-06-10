@@ -4,7 +4,7 @@ module pooling_testbench_RTL();
 
     shortint image_in[0:4][0:4] ;
     reg start;
-    reg [13:0] pixel_out;
+    shortint pixel_out;
     wire finish;
 
     localparam period = 100; 
