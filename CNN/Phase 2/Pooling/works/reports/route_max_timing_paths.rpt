@@ -1,0 +1,885 @@
+ Timing Path to pixel_out[13] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[13] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+------------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell     Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|----------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]          Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1    Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1    Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1    Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1    Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1    Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1    Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1    Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1    Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1    Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1    Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1    Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1    Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1    Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1    Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1    Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1    Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1    Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1    Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1    Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1    Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1    Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/CO       FA_X1    Fall  1.5480 0.0730 0.0150 0.489438 2.76208 3.25152           1       72.8906                | 
+|    i_0_0_39/CI       FA_X1    Fall  1.5480 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_39/CO       FA_X1    Fall  1.6210 0.0730 0.0150 0.532149 2.76208 3.29423           1       72.8906                | 
+|    i_0_0_40/CI       FA_X1    Fall  1.6210 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_40/CO       FA_X1    Fall  1.6940 0.0730 0.0150 0.394153 2.76208 3.15623           1       72.8906                | 
+|    i_0_0_41/CI       FA_X1    Fall  1.6940 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_41/CO       FA_X1    Fall  1.7660 0.0720 0.0150 0.261283 2.76208 3.02336           1       72.8906                | 
+|    i_0_0_42/CI       FA_X1    Fall  1.7660 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_42/CO       FA_X1    Fall  1.8390 0.0730 0.0150 0.419681 2.76208 3.18176           1       72.8906                | 
+|    i_0_0_43/CI       FA_X1    Fall  1.8390 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_43/CO       FA_X1    Fall  1.9110 0.0720 0.0150 0.332337 2.57361 2.90595           1       72.8906                | 
+|    i_0_0_62/B        XNOR2_X1 Fall  1.9110 0.0000 0.0150          2.36817                                                  | 
+|    i_0_0_62/ZN       XNOR2_X1 Fall  1.9550 0.0440 0.0110 0.15546  2.57361 2.72907           1       72.8906                | 
+|    i_0_0_61/B        XNOR2_X1 Fall  1.9550 0.0000 0.0110          2.36817                                                  | 
+|    i_0_0_61/ZN       XNOR2_X1 Rise  2.0000 0.0450 0.0300 0.747223 3.3389  4.08613           2       70.7589                | 
+|    i_0_0_58/B1       OAI21_X1 Rise  2.0000 0.0000 0.0300          1.66205                                                  | 
+|    i_0_0_58/ZN       OAI21_X1 Fall  2.0190 0.0190 0.0200 0.275667 1.62635 1.90202           1       70.7589                | 
+|    i_0_0_57/A        AOI21_X1 Fall  2.0190 0.0000 0.0200          1.53534                                                  | 
+|    i_0_0_57/ZN       AOI21_X1 Rise  2.0810 0.0620 0.0380 0.159016 5       5.15902           1       70.7589                | 
+|    pixel_out[13]              Rise  2.0810 0.0000 0.0380          5                                          cA            | 
+------------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -2.0810        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -1.3810        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[12] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[12] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1   Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1   Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/CO       FA_X1   Fall  1.5480 0.0730 0.0150 0.489438 2.76208 3.25152           1       72.8906                | 
+|    i_0_0_39/CI       FA_X1   Fall  1.5480 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_39/CO       FA_X1   Fall  1.6210 0.0730 0.0150 0.532149 2.76208 3.29423           1       72.8906                | 
+|    i_0_0_40/CI       FA_X1   Fall  1.6210 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_40/CO       FA_X1   Fall  1.6940 0.0730 0.0150 0.394153 2.76208 3.15623           1       72.8906                | 
+|    i_0_0_41/CI       FA_X1   Fall  1.6940 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_41/CO       FA_X1   Fall  1.7660 0.0720 0.0150 0.261283 2.76208 3.02336           1       72.8906                | 
+|    i_0_0_42/CI       FA_X1   Fall  1.7660 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_42/CO       FA_X1   Fall  1.8390 0.0730 0.0150 0.419681 2.76208 3.18176           1       72.8906                | 
+|    i_0_0_43/CI       FA_X1   Fall  1.8390 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_43/S        FA_X1   Rise  1.9490 0.1100 0.0100 0.28166  0.97463 1.25629           1       72.8906                | 
+|    i_0_0_56/A2       AND2_X1 Rise  1.9490 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_56/ZN       AND2_X1 Rise  1.9910 0.0420 0.0180 0.540695 5       5.5407            1       72.8906                | 
+|    pixel_out[12]             Rise  1.9910 0.0000 0.0180          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.9910        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -1.2910        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[11] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[11] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1   Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1   Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/CO       FA_X1   Fall  1.5480 0.0730 0.0150 0.489438 2.76208 3.25152           1       72.8906                | 
+|    i_0_0_39/CI       FA_X1   Fall  1.5480 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_39/CO       FA_X1   Fall  1.6210 0.0730 0.0150 0.532149 2.76208 3.29423           1       72.8906                | 
+|    i_0_0_40/CI       FA_X1   Fall  1.6210 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_40/CO       FA_X1   Fall  1.6940 0.0730 0.0150 0.394153 2.76208 3.15623           1       72.8906                | 
+|    i_0_0_41/CI       FA_X1   Fall  1.6940 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_41/CO       FA_X1   Fall  1.7660 0.0720 0.0150 0.261283 2.76208 3.02336           1       72.8906                | 
+|    i_0_0_42/CI       FA_X1   Fall  1.7660 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_42/S        FA_X1   Rise  1.8760 0.1100 0.0100 0.145988 0.97463 1.12062           1       72.8906                | 
+|    i_0_0_55/A2       AND2_X1 Rise  1.8760 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_55/ZN       AND2_X1 Rise  1.9180 0.0420 0.0180 0.44842  5       5.44842           1       72.8906                | 
+|    pixel_out[11]             Rise  1.9180 0.0000 0.0180          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.9180        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -1.2180        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[10] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[10] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1   Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1   Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/CO       FA_X1   Fall  1.5480 0.0730 0.0150 0.489438 2.76208 3.25152           1       72.8906                | 
+|    i_0_0_39/CI       FA_X1   Fall  1.5480 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_39/CO       FA_X1   Fall  1.6210 0.0730 0.0150 0.532149 2.76208 3.29423           1       72.8906                | 
+|    i_0_0_40/CI       FA_X1   Fall  1.6210 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_40/CO       FA_X1   Fall  1.6940 0.0730 0.0150 0.394153 2.76208 3.15623           1       72.8906                | 
+|    i_0_0_41/CI       FA_X1   Fall  1.6940 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_41/S        FA_X1   Rise  1.8040 0.1100 0.0100 0.253985 0.97463 1.22861           1       72.8906                | 
+|    i_0_0_54/A2       AND2_X1 Rise  1.8040 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_54/ZN       AND2_X1 Rise  1.8460 0.0420 0.0190 0.691472 5       5.69147           1       72.8906                | 
+|    pixel_out[10]             Rise  1.8460 0.0000 0.0190          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.8460        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -1.1460        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[9] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[9] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1   Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1   Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/CO       FA_X1   Fall  1.5480 0.0730 0.0150 0.489438 2.76208 3.25152           1       72.8906                | 
+|    i_0_0_39/CI       FA_X1   Fall  1.5480 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_39/CO       FA_X1   Fall  1.6210 0.0730 0.0150 0.532149 2.76208 3.29423           1       72.8906                | 
+|    i_0_0_40/CI       FA_X1   Fall  1.6210 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_40/S        FA_X1   Rise  1.7320 0.1110 0.0100 0.363614 0.97463 1.33824           1       72.8906                | 
+|    i_0_0_53/A2       AND2_X1 Rise  1.7320 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_53/ZN       AND2_X1 Rise  1.7740 0.0420 0.0190 0.630627 5       5.63063           1       72.8906                | 
+|    pixel_out[9]              Rise  1.7740 0.0000 0.0190          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.7740        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -1.0740        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[8] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[8] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1   Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1   Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/CO       FA_X1   Fall  1.5480 0.0730 0.0150 0.489438 2.76208 3.25152           1       72.8906                | 
+|    i_0_0_39/CI       FA_X1   Fall  1.5480 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_39/S        FA_X1   Rise  1.6580 0.1100 0.0100 0.143544 0.97463 1.11817           1       72.8906                | 
+|    i_0_0_52/A2       AND2_X1 Rise  1.6580 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_52/ZN       AND2_X1 Rise  1.7000 0.0420 0.0190 0.736134 5       5.73613           1       72.8906                | 
+|    pixel_out[8]              Rise  1.7000 0.0000 0.0190          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.7000        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -1.0000        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[7] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[7] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/CO       FA_X1   Fall  1.4750 0.0730 0.0150 0.371027 2.76208 3.13311           1       72.8906                | 
+|    i_0_0_38/CI       FA_X1   Fall  1.4750 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_38/S        FA_X1   Rise  1.5850 0.1100 0.0100 0.300624 0.97463 1.27525           1       72.8906                | 
+|    i_0_0_51/A2       AND2_X1 Rise  1.5850 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_51/ZN       AND2_X1 Rise  1.6270 0.0420 0.0190 0.668773 5       5.66877           1       70.7589                | 
+|    pixel_out[7]              Rise  1.6270 0.0000 0.0190          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.6270        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -0.9270        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[6] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[6] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/CO       FA_X1   Fall  1.4020 0.0720 0.0150 0.249554 2.76208 3.01163           1       70.7589                | 
+|    i_0_0_37/CI       FA_X1   Fall  1.4020 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_37/S        FA_X1   Rise  1.5130 0.1110 0.0100 0.342554 0.97463 1.31718           1       72.8906                | 
+|    i_0_0_50/A2       AND2_X1 Rise  1.5130 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_50/ZN       AND2_X1 Rise  1.5550 0.0420 0.0190 0.674712 5       5.67471           1       72.8906                | 
+|    pixel_out[6]              Rise  1.5550 0.0000 0.0190          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.5550        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -0.8550        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[5] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[5] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/CO       FA_X1   Fall  1.3300 0.0730 0.0150 0.403614 2.76208 3.16569           1       70.7589                | 
+|    i_0_0_36/CI       FA_X1   Fall  1.3300 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_36/S        FA_X1   Rise  1.4410 0.1110 0.0100 0.319049 0.97463 1.29368           1       70.7589                | 
+|    i_0_0_49/A2       AND2_X1 Rise  1.4410 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_49/ZN       AND2_X1 Rise  1.4820 0.0410 0.0180 0.306763 5       5.30676           1       70.7589                | 
+|    pixel_out[5]              Rise  1.4820 0.0000 0.0180          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.4820        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -0.7820        | 
+--------------------------------------------------------------
+
+
+ Timing Path to pixel_out[4] 
+  
+ Path Start Point : image_in[0][1][0] 
+ Path End Point   : pixel_out[4] 
+                       (rising IO latch clocked by vsysclk_new_mode) 
+ Mode             : new_mode 
+ Corner           : corner_0_0 
+ Data Cell Derate : 1 
+ Data Net Derate  : 1 
+ Clock Cell Derate: Early = 1 / Late = 1 
+ Clock Net Derate : Early = 1 / Late = 1 
+ Path Type        : max 
+ Path Group       : **feedthroughs** 
+ CRPR Threshold   : 5 
+  
+ Attributes  : U - cell is dont use 
+             : M - cell is dont modify 
+             : m - net is dont modify 
+             : n - connected (sub)net is dont modify 
+             : S - cell is size only 
+             : F - cell is fixed 
+             : C - cell has annotated timing constraints 
+             : c - pin has annotated timing constraints 
+             : A - cell is affected by case analysis 
+             : L - Estimated latency 
+             : O - CTS offset 
+  
+ Opt Attr    : I - is ideal 
+             : L - is internal logic const 
+             : K - is in clock network 
+             : M - has only don't modify nets 
+             : N - has no load pin 
+             : D - has zero or multiple drivers 
+             : G - is valid global net 
+             : T - is not switching 
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+| Pin                  Cell    Edge Arrival Delay  Slew   Wire Cap Pin Cap Total Cap Derate  Fanout  Bin Util Attr Opt Attr | 
+|---------------------------------------------------------------------------------------------------------------------------|
+|    image_in[0][1][0]         Fall  0.7000 0.0000 0.1000 0.29172  3.74571 4.03743           1       130      cA            | 
+|    i_0_0_0/A         FA_X1   Fall  0.7000 0.0000 0.1000          3.6056                                                   | 
+|    i_0_0_0/CO        FA_X1   Fall  0.8190 0.1190 0.0180 0.233369 3.44779 3.68116           1       84.2169                | 
+|    i_0_0_2/B         HA_X1   Fall  0.8190 0.0000 0.0180          3.34175                                                  | 
+|    i_0_0_2/S         HA_X1   Fall  0.8830 0.0640 0.0300 0.429524 3.74571 4.17523           1       84.2169                | 
+|    i_0_0_30/A        FA_X1   Fall  0.8830 0.0000 0.0300          3.6056                                                   | 
+|    i_0_0_30/CO       FA_X1   Fall  0.9680 0.0850 0.0150 0.470038 2.76208 3.23212           1       84.2169                | 
+|    i_0_0_31/CI       FA_X1   Fall  0.9680 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_31/CO       FA_X1   Fall  1.0410 0.0730 0.0150 0.392755 2.76208 3.15483           1       84.2169                | 
+|    i_0_0_32/CI       FA_X1   Fall  1.0410 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_32/CO       FA_X1   Fall  1.1130 0.0720 0.0150 0.226749 2.76208 2.98883           1       84.2169                | 
+|    i_0_0_33/CI       FA_X1   Fall  1.1130 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_33/CO       FA_X1   Fall  1.1850 0.0720 0.0150 0.152731 2.76208 2.91481           1       84.2169                | 
+|    i_0_0_34/CI       FA_X1   Fall  1.1850 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_34/CO       FA_X1   Fall  1.2570 0.0720 0.0150 0.283782 2.76208 3.04586           1       70.7589                | 
+|    i_0_0_35/CI       FA_X1   Fall  1.2570 0.0000 0.0150          2.66475                                                  | 
+|    i_0_0_35/S        FA_X1   Rise  1.3670 0.1100 0.0100 0.129829 0.97463 1.10446           1       70.7589                | 
+|    i_0_0_48/A2       AND2_X1 Rise  1.3670 0.0000 0.0100          0.97463                                                  | 
+|    i_0_0_48/ZN       AND2_X1 Rise  1.4090 0.0420 0.0180 0.459457 5       5.45946           1       70.7589                | 
+|    pixel_out[4]              Rise  1.4090 0.0000 0.0180          5                                          cA            | 
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------
+|                                           | Time    Total  | 
+|------------------------------------------------------------|
+| target clock vsysclk_new_mode (rise edge) |  0.0000 0.0000 | 
+| target clock cycle shift                  |  1.0000 1.0000 | 
+| output delay                              | -0.3000 0.7000 | 
+| data required time                        |  0.7000        | 
+|                                           |                | 
+| data required time                        |  0.7000        | 
+| data arrival time                         | -1.4090        | 
+| pessimism                                 |  0.0000        | 
+|                                           |                | 
+| slack                                     | -0.7090        | 
+--------------------------------------------------------------
+
+
+info UI33: performed report_timing for 0 sec (CPU time: 0 sec; MEM: RSS - 272M, CVMEM - 1691M, PVMEM - 1839M)
